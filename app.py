@@ -141,8 +141,19 @@ def generate_streaming_speech(
         print(error_msg)
         return None, error_msg
 
-# Create Gradio interface
-with gr.Blocks(title="VoxCPM - Text-to-Speech", theme=gr.themes.Soft()) as demo:
+# Create Gradio interface with improved styling
+with gr.Blocks(
+    title="VoxCPM - Text-to-Speech",
+    theme=gr.themes.Soft(),
+    css="""
+        .gradio-container {
+            max-width: 1200px !important;
+        }
+        .tab-nav button {
+            font-size: 16px !important;
+        }
+    """
+) as demo:
     gr.Markdown("""
     # 🎙️ VoxCPM - Tokenizer-Free TTS
     
@@ -168,7 +179,9 @@ with gr.Blocks(title="VoxCPM - Text-to-Speech", theme=gr.themes.Soft()) as demo:
                         label="Text to Synthesize",
                         placeholder="Enter your text here...",
                         lines=5,
-                        value="VoxCPM is an innovative end-to-end TTS model from ModelBest, designed to generate highly expressive speech."
+                        value="VoxCPM is an innovative end-to-end TTS model from ModelBest, designed to generate highly expressive speech.",
+                        max_lines=10,
+                        show_copy_button=True
                     )
                     
                     normalize_checkbox = gr.Checkbox(
@@ -196,20 +209,23 @@ with gr.Blocks(title="VoxCPM - Text-to-Speech", theme=gr.themes.Soft()) as demo:
                         label="Text to Synthesize",
                         placeholder="Enter your text here...",
                         lines=5,
-                        value="This is a demonstration of voice cloning with VoxCPM."
+                        value="This is a demonstration of voice cloning with VoxCPM.",
+                        max_lines=10,
+                        show_copy_button=True
                     )
                     
                     prompt_audio_input = gr.Audio(
                         label="Reference Audio (Prompt Speech)",
-                        type="filepath",
-                        info="Upload a short audio clip of the voice you want to clone"
+                        type="filepath"
                     )
                     
                     prompt_text_input = gr.Textbox(
                         label="Reference Text (Optional)",
                         placeholder="Transcript of the reference audio...",
                         lines=3,
-                        info="Provide the transcript of the reference audio for better results"
+                        info="Provide the transcript of the reference audio for better results",
+                        max_lines=8,
+                        show_copy_button=True
                     )
                     
                     use_enhancement = gr.Checkbox(
@@ -242,7 +258,9 @@ with gr.Blocks(title="VoxCPM - Text-to-Speech", theme=gr.themes.Soft()) as demo:
                         label="Text to Synthesize",
                         placeholder="Enter your text here...",
                         lines=5,
-                        value="Advanced settings allow you to fine-tune the speech generation process."
+                        value="Advanced settings allow you to fine-tune the speech generation process.",
+                        max_lines=10,
+                        show_copy_button=True
                     )
                     
                     prompt_audio_advanced = gr.Audio(
@@ -253,7 +271,9 @@ with gr.Blocks(title="VoxCPM - Text-to-Speech", theme=gr.themes.Soft()) as demo:
                     prompt_text_advanced = gr.Textbox(
                         label="Reference Text (Optional)",
                         placeholder="Transcript of the reference audio...",
-                        lines=2
+                        lines=2,
+                        max_lines=8,
+                        show_copy_button=True
                     )
                     
                     with gr.Accordion("🎛️ Generation Parameters", open=True):
@@ -429,5 +449,7 @@ if __name__ == "__main__":
         server_name="0.0.0.0",
         server_port=7860,
         share=False,
-        show_error=True
+        show_error=True,
+        show_api=True,
+        favicon_path="icon.png" if os.path.exists("icon.png") else None
     )
