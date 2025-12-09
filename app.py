@@ -1,9 +1,14 @@
 import os
-import torch
+import sys
 
-# Disable torch.compile to avoid Dynamo errors on Windows
+# Disable torch.compile completely to avoid Dynamo errors on Windows
 os.environ['TORCH_COMPILE_DISABLE'] = '1'
+os.environ['TORCHDYNAMO_DISABLE'] = '1'
+
+import torch
+# Disable dynamo before any model imports
 torch._dynamo.config.suppress_errors = True
+torch._dynamo.disable()
 
 import gradio as gr
 import soundfile as sf
