@@ -8,7 +8,7 @@ module.exports = {
         venv: "env",
         env: { },
         message: [
-          "python gradio_app.py"
+          "python app.py"
         ],
         on: [{
           // Monitor for Gradio's HTTP URL output
