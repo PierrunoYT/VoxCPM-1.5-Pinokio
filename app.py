@@ -1,8 +1,14 @@
+import os
+import torch
+
+# Disable torch.compile to avoid Dynamo errors on Windows
+os.environ['TORCH_COMPILE_DISABLE'] = '1'
+torch._dynamo.config.suppress_errors = True
+
 import gradio as gr
 import soundfile as sf
 import numpy as np
 from voxcpm import VoxCPM
-import os
 import tempfile
 
 # Initialize the model
