@@ -417,7 +417,9 @@ if __name__ == "__main__":
     _favicon = None
     for _candidate in (
         os.path.join(_here, "icon.png"),
+        os.path.join(_here, "icon.jpeg"),
         os.path.join(_here, "icon.jpg"),
+        os.path.join(_root, "icon.jpeg"),
         os.path.join(_root, "icon.jpg"),
         os.path.join(_root, "icon.png"),
     ):
