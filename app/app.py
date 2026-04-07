@@ -288,7 +288,6 @@ with gr.Blocks(
                 label="✍️ Target Text — the content to speak",
                 lines=4,
                 max_lines=10,
-                show_copy_button=True,
             )
 
             with gr.Accordion("⚙️ Advanced Settings", open=False):
